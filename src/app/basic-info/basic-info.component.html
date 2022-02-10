@@ -1,0 +1,25 @@
+<h4>Basic Info Form</h4>
+<ng-container [formGroup]="form">
+  Inner -
+  <pre [innerHTML]="form.value | json"></pre>
+  <div class="row">
+    <label for="First Name"> First Name </label>
+    <input type="text" formControlName="firstName" />
+  </div>
+  <div class="row">
+    <label for="Last Name"> Last Name </label>
+    <input type="text" formControlName="lastName" />
+  </div>
+  <div class="row">
+    <label for="Email"> Email </label>
+    <input type="text" formControlName="email" />
+  </div>
+  <div class="row">
+    <label for="Address Info"> Address Info </label>
+    <app-address-info formControlName="addressInfo"></app-address-info>
+  </div>
+
+  <h4>Form Dirty: {{ form.dirty }}</h4>
+  <h4>Form Touched: {{ form.touched }}</h4>
+  <h4>Form Pristine: {{ form.pristine }}</h4>
+</ng-container>

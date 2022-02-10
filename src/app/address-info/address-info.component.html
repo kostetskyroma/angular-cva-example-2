@@ -1,0 +1,27 @@
+<h4>Address Info Form</h4>
+<ng-container [formGroup]="form">
+  <div class="row">
+    <label for="address1"> Address 1 </label>
+    <input type="text" formControlName="address1" (blur)="onTouched?.()" />
+  </div>
+  <div class="row">
+    <label for="address2"> Address 2</label>
+    <input type="text" formControlName="address2" (blur)="onTouched?.()" />
+  </div>
+  <div class="row">
+    <label for="state"> State </label>
+    <input type="text" formControlName="state" (blur)="onTouched?.()" />
+  </div>
+  <div class="row">
+    <label for="city"> City </label>
+    <input type="text" formControlName="city" (blur)="onTouched?.()" />
+  </div>
+  <div class="row">
+    <label for="zip"> Zip </label>
+    <input type="text" formControlName="zip" (blur)="onTouched?.()" />
+  </div>
+  <h4>Form Dirty: {{ form.dirty }}</h4>
+  <h4>Form Touched: {{ form.touched }}</h4>
+  <h4>Form Pristine: {{ form.pristine }}</h4>
+  <hr />
+</ng-container>

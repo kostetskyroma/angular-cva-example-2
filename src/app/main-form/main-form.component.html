@@ -1,0 +1,17 @@
+<div class="container">
+  <form [formGroup]="form">
+    <app-basic-info formControlName="basicInfo"></app-basic-info>
+    <button type="submit" [disabled]="form.invalid">Sign Up</button>
+  </form>
+</div>
+<div>
+  <h3>Form Value</h3>
+  <pre [innerHTML]="form.value | json"></pre>
+  <br />
+  <h3>Form Dirty: {{ form.dirty }}</h3>
+  <h3>Form Touched: {{ form.touched }}</h3>
+  <h3>Form Pristine: {{ form.pristine }}</h3>
+
+  <button (click)="onPatchBasicForm()">PatchBasicForm</button>
+  <button (click)="onPatchBasicFormWithValues()">PatchBasicFormValues</button>
+</div>
