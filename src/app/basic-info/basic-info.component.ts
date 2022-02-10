@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, ChangeDetectorRef } from '@angular/core';
 import {
   AbstractControl,
   ControlContainer,
@@ -45,7 +45,10 @@ export class BasicInfoComponent implements ControlValueAccessor, Validator {
 
   public initialState = null;
 
-  constructor(private controlContainer: ControlContainer) {
+  constructor(
+    private controlContainer: ControlContainer,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.initialState = this.form.value;
   }
 
@@ -70,6 +73,7 @@ export class BasicInfoComponent implements ControlValueAccessor, Validator {
       if (!isAnyControlDirty) {
         this.markAsPristine(this.form);
       }
+      this.changeDetectorRef.detectChanges();
     });
 
     this.writeValue(this.initialState);
@@ -87,7 +91,7 @@ export class BasicInfoComponent implements ControlValueAccessor, Validator {
     form?.markAsPristine();
 
     if (form && form.parent) {
-      this.markAsPristine(this.form.parent);
+      this.markAsPristine(form.parent);
     }
   }
 }

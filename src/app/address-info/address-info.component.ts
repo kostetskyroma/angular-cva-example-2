@@ -1,10 +1,12 @@
-import { Component, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Component, forwardRef } from '@angular/core';
 import {
   AbstractControl,
+  ControlContainer,
   ControlValueAccessor,
   FormArray,
   FormControl,
   FormGroup,
+  FormGroupDirective,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
@@ -42,16 +44,24 @@ export class AddressInfoComponent implements ControlValueAccessor {
 
   public initialState = null;
 
-  constructor() {
+  constructor(
+    private controlContainer: ControlContainer,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.initialState = this.form.value;
+  }
+
+  ngOnInit() {
+    const parentForm = (this.controlContainer as FormGroupDirective)?.form;
+    this.form.setParent(parentForm);
   }
 
   writeValue(obj: any): void {
     obj !== null
       ? this.form.patchValue(obj)
       : this.form.reset(this.initialState);
-    this.form.markAsPristine();
   }
+
   registerOnChange(fn: any): void {
     this.onChanged = fn;
 
@@ -62,6 +72,7 @@ export class AddressInfoComponent implements ControlValueAccessor {
       if (!isAnyControlDirty) {
         this.markAsPristine(this.form);
       }
+      this.changeDetectorRef.detectChanges();
     });
 
     this.writeValue(this.initialState);
@@ -79,7 +90,7 @@ export class AddressInfoComponent implements ControlValueAccessor {
     form?.markAsPristine();
 
     if (form && form.parent) {
-      this.markAsPristine(this.form.parent);
+      this.markAsPristine(form.parent);
     }
   }
 }
